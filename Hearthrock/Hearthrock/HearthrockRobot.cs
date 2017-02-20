@@ -406,15 +406,15 @@ namespace Hearthrock
                         {
                             return action;
                         }
-                        if (hero.GetEntity().GetRemainingHP() < 5)
+                        if (hero.GetEntity().GetRealTimeRemainingHP() < 5)
                         {
                             return action;
                         }
-                        else if (hero.GetEntity().GetRemainingHP() < 12)
+                        else if (hero.GetEntity().GetRealTimeRemainingHP() < 12)
                         {
 
 
-                            if (attack_count_enemy + 2 > hero.GetEntity().GetRemainingHP())
+                            if (attack_count_enemy + 2 > hero.GetEntity().GetRealTimeRemainingHP())
                             {
                                 return action;
                             }
@@ -470,7 +470,7 @@ namespace Hearthrock
             {
                 foreach (Card card in minion_attacker)
                 {
-                    if (card_oppo.GetEntity().GetRemainingHP() <= card.GetEntity().GetATK())
+                    if (card_oppo.GetEntity().GetRealTimeRemainingHP() <= card.GetEntity().GetATK())
                     {
                         if (target_best == null)
                         {

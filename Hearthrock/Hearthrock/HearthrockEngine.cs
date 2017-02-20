@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PegasusShared;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -212,7 +213,7 @@ namespace Hearthrock
             GameState state = GameState.Get();
             if (state == null) return;
             
-            if (state.IsBlockingServer())
+            if (state.IsBlockingPowerProcessor())
             {
                 HoldBack(750);
                 Log("BlockingServer");
@@ -380,7 +381,7 @@ namespace Hearthrock
                 action.step = -1;
                 return;
                 // maybe can do sth to deal with card with spell
-                if (InputManager.Get().heldObject == null)
+                if (InputManager.Get().GetHeldCard() == null)
                 {
                     action.step = -1;
                     return;
@@ -549,22 +550,22 @@ namespace Hearthrock
             long selectedDeckID = DeckPickerTrayDisplay.Get().GetSelectedDeckID();
 
 
-            Network.TrackWhat what;
+            //Network.TrackWhat what;
             PegasusShared.GameType type;
             if (ranked)
             {
-                what = Network.TrackWhat.TRACK_PLAY_TOURNAMENT_WITH_CUSTOM_DECK;
+                //what = Network.TrackWhat.TRACK_PLAY_TOURNAMENT_WITH_CUSTOM_DECK;
                 type = PegasusShared.GameType.GT_RANKED;
             }
             else
             {
-                what = Network.TrackWhat.TRACK_PLAY_CASUAL_WITH_CUSTOM_DECK;
-                type = PegasusShared.GameType.GT_UNRANKED;
+                //what = Network.TrackWhat.TRACK_PLAY_CASUAL_WITH_CUSTOM_DECK;
+                type = PegasusShared.GameType.GT_CASUAL;
             }
-            Network.TrackClient(Network.TrackLevel.LEVEL_INFO, what);
+            //Network.TrackClient(Network.TrackLevel.LEVEL_INFO, what);
 
 
-            GameMgr.Get().FindGame(type, 2, selectedDeckID, 0L);
+            GameMgr.Get().FindGame(type, FormatType.FT_STANDARD, 2, selectedDeckID, 0L);
 
             Enum[] args = new Enum[] { PresenceStatus.PLAY_QUEUE };
             PresenceMgr.Get().SetStatus(args);
@@ -616,7 +617,7 @@ namespace Hearthrock
 
             HoldBack(5000);
             ScenarioDbId mission = HearthrockUtils.RandomPracticeMission();
-            GameMgr.Get().FindGame(PegasusShared.GameType.GT_VS_AI, (int)mission, deck, 0L);
+            GameMgr.Get().FindGame(PegasusShared.GameType.GT_VS_AI, FormatType.FT_STANDARD, (int)mission, deck, 0L);
         }
 
 

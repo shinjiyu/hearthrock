@@ -52,7 +52,7 @@ namespace Hearthrock
             {
                 power += entity.GetATK();
             }
-            power -= entity.GetRemainingHP();
+            power -= entity.GetRealTimeRemainingHP();
             if (entity.HasDivineShield())
             {
                 power -= 1;
