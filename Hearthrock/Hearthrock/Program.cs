@@ -31,6 +31,7 @@ namespace Hearthrock
                     Console.ReadKey(false);
                     return;
                 }
+                File.Copy(path_hearthstone_managed + "Assembly-CSharp.dll", path_hearthstone_managed + "Assembly-CSharp.original.dll", true);
                 File.Copy("Hearthrock.exe", path_hearthstone_managed + "Hearthrock.exe", true);
                 string path_hearthrock = path_hearthstone_managed + "Hearthrock.exe";
                 AssemblyDefinition assembly_hearthrock = AssemblyDefinition.ReadAssembly(path_hearthrock);

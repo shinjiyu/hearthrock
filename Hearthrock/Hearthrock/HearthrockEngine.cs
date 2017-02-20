@@ -615,8 +615,25 @@ namespace Hearthrock
                 return;
             }
 
+
+            AdventureSubScenes currentSubScene = AdventureConfig.Get().GetCurrentSubScene();
+            if (currentSubScene == AdventureSubScenes.Practice)
+            {
+                PracticePickerTrayDisplay.Get().Show();
+                HoldBack(3000);
+            }
+     //       if (currentSubScene == AdventureSubScenes.MissionDeckPicker)
+     //       {
+     //           GameMgr.Get().FindGame(GameType.GT_VS_AI, formatType, (int)adventureConfig.GetMission(), selectedDeckID3, 0L);
+     //       }
+
+
             HoldBack(5000);
             ScenarioDbId mission = HearthrockUtils.RandomPracticeMission();
+
+
+            Notify("Mulligan");
+
             GameMgr.Get().FindGame(PegasusShared.GameType.GT_VS_AI, FormatType.FT_STANDARD, (int)mission, deck, 0L);
         }
 
